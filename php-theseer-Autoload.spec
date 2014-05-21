@@ -57,5 +57,4 @@ rm -rf $RPM_BUILD_ROOT
 %doc README.md LICENSE install.log
 %{php_pear_dir}/.registry/.channel.*/*.reg
 %attr(755,root,root) %{_bindir}/phpab
-%dir %{php_pear_dir}/TheSeer
 %{php_pear_dir}/TheSeer/Autoload
