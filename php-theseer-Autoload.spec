@@ -1,3 +1,7 @@
+#
+# Conditional build:
+%bcond_without	tests		# build without tests
+
 %define		status		stable
 %define		pearname	Autoload
 %define		php_min_version 5.2.0
@@ -15,6 +19,10 @@ BuildRequires:	php-channel(pear.netpirates.net)
 BuildRequires:	php-pear-PEAR >= 1:1.8.0
 BuildRequires:	rpm-php-pearprov >= 4.4.2-11
 BuildRequires:	rpmbuild(macros) >= 1.610
+%if %{with tests}
+BuildRequires:	php-phpunit-PHPUnit
+BuildRequires:	php-theseer-DirectoryScanner >= 1.3.0
+%endif
 Requires:	php(core) >= %{php_min_version}
 Requires:	php(date)
 Requires:	php(spl)
@@ -42,6 +50,26 @@ In PEAR status of this package is: %{status}.
 %prep
 %pear_package_setup
 mv docs/Autoload/* .
+
+# fixes for tests
+cd .%{php_pear_dir}/tests/%{pearname}
+mv tests/init.php{,.orig}
+cat <<EOF | tee tests/init.php
+<?php
+require 'TheSeer/DirectoryScanner/autoload.php';
+require 'TheSeer/Autoload/autoload.php';
+EOF
+
+%build
+%if %{with tests}
+cd .%{php_pear_dir}
+PEAR_DIR=$(pwd)
+cd tests/%{pearname}
+
+phpunit \
+	--include-path=$PEAR_DIR \
+	-d date.timezone=UTC
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
