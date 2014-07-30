@@ -20,6 +20,7 @@ BuildRequires:	php-pear-PEAR >= 1:1.8.0
 BuildRequires:	rpm-php-pearprov >= 4.4.2-11
 BuildRequires:	rpmbuild(macros) >= 1.610
 %if %{with tests}
+BuildRequires:	php(dom)
 BuildRequires:	php(tokenizer)
 BuildRequires:	php-phpunit-PHPUnit
 BuildRequires:	php-theseer-DirectoryScanner >= 1.3.0
