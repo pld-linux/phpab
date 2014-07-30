@@ -6,8 +6,8 @@
 %define		pearname	Autoload
 %define		php_min_version 5.2.0
 %include	/usr/lib/rpm/macros.php
-Summary:	%{pearname} - A tool and library to generate autoload code
-Name:		php-theseer-Autoload
+Summary:	PHP AutoloadBuilder CLI tool
+Name:		phpab
 Version:	1.14.2
 Release:	1
 License:	BSD License
@@ -34,6 +34,7 @@ Requires:	php-pear
 Requires:	php-theseer-DirectoryScanner >= 1.3.0
 Suggests:	php(openssl)
 Suggests:	php(phar)
+Obsoletes:	php-theseer-Autoload < 1.14.2-2
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
