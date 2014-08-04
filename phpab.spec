@@ -15,6 +15,8 @@ Group:		Development/Languages/PHP
 Source0:	http://pear.netpirates.net/get/%{pearname}-%{version}.tgz
 # Source0-md5:	6b8e12de818cec14f6338be1a9bdc382
 URL:		http://www.phpab.net/
+BuildRequires:	%{php_name}-iconv
+BuildRequires:	%{php_name}-program
 BuildRequires:	php-channel(pear.netpirates.net)
 BuildRequires:	php-pear-PEAR >= 1:1.8.0
 BuildRequires:	rpm-php-pearprov >= 4.4.2-11
