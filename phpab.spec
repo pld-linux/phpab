@@ -5,7 +5,6 @@
 %define		status		stable
 %define		pearname	Autoload
 %define		php_min_version 5.2.0
-%include	/usr/lib/rpm/macros.php
 Summary:	PHP AutoloadBuilder CLI tool
 Name:		phpab
 Version:	1.14.2
