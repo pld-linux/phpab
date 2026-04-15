@@ -6,17 +6,17 @@
 Summary:	PHP AutoloadBuilder CLI tool
 Name:		phpab
 Version:	1.29.4
-Release:	1
+Release:	2
 License:	BSD
 Group:		Development/Languages/PHP
 Source0:	https://github.com/theseer/Autoload/archive/%{version}/Autoload-%{version}.tar.gz
 # Source0-md5:	a51a99c6e934074801afe51e5b8fda6e
 URL:		https://github.com/theseer/Autoload
-BuildRequires:	%{php_name}-program
-BuildRequires:	%{php_name}-tokenizer
+BuildRequires:	%{_bindir}/php
+BuildRequires:	php(tokenizer)
 BuildRequires:	rpmbuild(macros) >= 1.610
 %if %{with tests}
-BuildRequires:	%{php_name}-dom
+BuildRequires:	php(dom)
 BuildRequires:	php-phpunit-PHPUnit
 BuildRequires:	php-theseer-DirectoryScanner >= 1.3.3
 %endif
