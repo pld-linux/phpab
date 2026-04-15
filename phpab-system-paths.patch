@@ -1,0 +1,29 @@
+--- Autoload-1.29.4/composer/bin/phpab.orig	2025-12-07 09:55:11.000000000 +0100
++++ Autoload-1.29.4/composer/bin/phpab	2026-04-15 23:17:46.906339903 +0200
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env php
++#!/usr/bin/php
+ <?php
+ /**
+  * Copyright (c) 2009-2016 Arne Blankerts <arne@blankerts.de>
+@@ -44,19 +44,7 @@
+ 
+ define('PHPAB_VERSION', '%development%');
+ 
+-$files = array(
+-    __DIR__ . '/../../vendor/autoload.php',
+-    __DIR__ . '/../../../../autoload.php'
+-);
+-
+-foreach ($files as $file) {
+-    if (file_exists($file)) {
+-        require $file;
+-        break;
+-    }
+-}
+-
+-require __DIR__ . '/../../src/autoload.php';
++require '/usr/share/pear/TheSeer/Autoload/autoload.php';
+ 
+ $factory = new \TheSeer\Autoload\Factory();
+ $rc = $factory->getCLI()->run($_SERVER);

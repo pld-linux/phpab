@@ -6,11 +6,12 @@
 Summary:	PHP AutoloadBuilder CLI tool
 Name:		phpab
 Version:	1.29.4
-Release:	2
+Release:	3
 License:	BSD
 Group:		Development/Languages/PHP
 Source0:	https://github.com/theseer/Autoload/archive/%{version}/Autoload-%{version}.tar.gz
 # Source0-md5:	a51a99c6e934074801afe51e5b8fda6e
+Patch0:		%{name}-system-paths.patch
 URL:		https://github.com/theseer/Autoload
 BuildRequires:	%{_bindir}/php
 BuildRequires:	php(tokenizer)
@@ -43,23 +44,17 @@ A tool and library to generate autoload code.
 
 %prep
 %setup -q -n Autoload-%{version}
+%patch -P0 -p1
 
 # Fix autoloader paths: upstream uses composer vendor/ layout,
 # we use system-installed packages in %%{php_pear_dir}.
-# From install dir (%%{php_pear_dir}/TheSeer/Autoload/), the relative paths are:
-#   ezc/Base       -> ../../ezc/Base/
-#   ezc/ConsoleTools -> ../../ezc/ConsoleTools/
-#   DirectoryScanner -> ../DirectoryScanner/
 %{__sed} -i -e "s|/../vendor/zetacomponents/base/src/|/../../ezc/Base/|g" \
 	-e "s|/../vendor/zetacomponents/console-tools/src/|/../../ezc/ConsoleTools/|g" \
 	-e "s|/../vendor/theseer/directoryscanner/src/|/../DirectoryScanner/|g" \
 	src/autoload.php
 
-# Fix the entry point to use system autoloader path
-%{__sed} -i -e '1s|#!/usr/bin/env php|#!%{__php}|' \
-	-e '/vendor\/autoload/,/break;/d' \
-	-e "s|__DIR__ . '/../../src/autoload.php'|'%{php_pear_dir}/TheSeer/Autoload/autoload.php'|" \
-	-e "s/%%development%%/%{version}/" \
+# Substitute version in the entry point
+%{__sed} -i -e "s/%%development%%/%{version}/" \
 	composer/bin/phpab
 
 %install
